@@ -34,7 +34,7 @@ export default function createForwarder({
     }: {
       request: Request
       to: string
-      transform?: (result: Data) => Response
+      transform?: (result: Data) => Promise<Response>
     }) => {
       const body = await request.formData()
 
@@ -67,7 +67,7 @@ export default function createForwarder({
     }: {
       request: Request
       to: Record<keyof Data, string>
-      transform?: (result: Data) => Response
+      transform?: (result: Data) => Promise<Response>
     }) => {
       const data: any = {}
 
