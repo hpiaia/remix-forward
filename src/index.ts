@@ -15,7 +15,7 @@ export default function createForwarder({
 }: {
   baseUrl: string
   errorHandler?: (error: Response) => Response
-  setupHeaders?: (request: Request) => Headers
+  setupHeaders?: (request: Request) => Promise<Headers>
 }) {
   return {
     /**
@@ -40,7 +40,7 @@ export default function createForwarder({
 
       const response = await fetch(baseUrl + to, {
         method: request.method,
-        headers: setupHeaders ? setupHeaders(request) : request.headers,
+        headers: setupHeaders ? await setupHeaders(request) : request.headers,
         body,
       })
 
@@ -79,7 +79,7 @@ export default function createForwarder({
 
         const response = await fetch(baseUrl + urlWithParameters, {
           method: request.method,
-          headers: setupHeaders ? setupHeaders(request) : request.headers,
+          headers: setupHeaders ? await setupHeaders(request) : request.headers,
         })
 
         if (!response.ok) {
