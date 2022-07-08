@@ -13,7 +13,7 @@ export default function createForwarder({
   errorHandler,
 }: {
   baseUrl: string
-  errorHandler: (error: Response) => Response
+  errorHandler?: (error: Response) => Response
 }) {
   return {
     /**
